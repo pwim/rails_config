@@ -81,4 +81,18 @@ describe Config::Options do
     end
   end
 
+  context 'when Settings file contains keys' do
+    let(:config) do
+      Config.load_files("#{fixture_path}/keys.yml")
+    end
+
+    it "doesn't overwrite keys method" do
+      expect(config.keys).to eq(%i[keys])
+    end
+
+    it 'can access keys via []' do
+      expect(config["keys"].service1).to eq("aaaa")
+      expect(config["keys"].service2).to eq("bbbb")
+    end
+  end
 end

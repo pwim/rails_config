@@ -128,17 +128,6 @@ module Config
     # Some keywords that don't play nicely with OpenStruct
     SETTINGS_RESERVED_NAMES = %w{select collect}
 
-    # An alternative mechanism for property access.
-    # This let's you do foo['bar'] along with foo.bar.
-    def [](param)
-      return super if SETTINGS_RESERVED_NAMES.include?(param)
-      send("#{param}")
-    end
-
-    def []=(param, value)
-      send("#{param}=", value)
-    end
-
     SETTINGS_RESERVED_NAMES.each do |name|
       define_method name do
         self[name]
